@@ -23,15 +23,15 @@ galleryEl.insertAdjacentHTML("beforeend", galleryItemsEl);
 
 galleryEl.addEventListener("click", openImage);
 
+var lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+  captionType: "alt",
+});
+
 function openImage(event) {
   event.preventDefault();
   if (event.target.tagName === "IMG") {
-    var lightbox = new SimpleLightbox(".gallery a", {
-      captionsData: "alt",
-      captionDelay: 250,
-      captionType: "alt",
-    });
-
     galleryEl.addEventListener("keydown", (event) => {
       if (event.code === "Escape") {
         instance.close();
@@ -39,4 +39,3 @@ function openImage(event) {
     });
   }
 }
-

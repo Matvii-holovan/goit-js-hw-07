@@ -5,8 +5,10 @@ console.log(galleryItems);
 
 const galleryEl = document.querySelector(".gallery");
 
-function createGalleryItem(items){
-    return items.map((item) => `<li class="gallery__item">
+function createGalleryItem(items) {
+  return items
+    .map(
+      (item) => `<li class="gallery__item">
     <a class="gallery__link" href="${item.original}">
       <img
         class="gallery__image"
@@ -15,27 +17,29 @@ function createGalleryItem(items){
         alt="${item.description}"
       />
     </a>
-  </li>`).join("");
-};
+  </li>`
+    )
+    .join("");
+}
 
 const galleryItemsEl = createGalleryItem(galleryItems);
 
-galleryEl.insertAdjacentHTML('beforeend', galleryItemsEl);
+galleryEl.insertAdjacentHTML("beforeend", galleryItemsEl);
 
-galleryEl.addEventListener('click', openImage);
+galleryEl.addEventListener("click", openImage);
 
 function openImage(event) {
-    event.preventDefault();
-    if (event.target.tagName === "IMG") {
-        const itemImage = event.target.dataset.source;
-        const instance = basicLightbox.create(`<img src = "${itemImage}"/>`);
-        instance.show();
+  event.preventDefault();
+  if (event.target.tagName === "IMG") {
+    const itemImage = event.target.dataset.source;
+    const instance = basicLightbox.create(`<img src = "${itemImage}"/>`);
+    instance.show();
 
-        galleryEl.addEventListener('keydown', (event) => {
-            if (event.code === "Escape") {
-                instance.close();
-            }
-        })
-    }
-    
+    galleryEl.addEventListener("keydown", (event) => {
+      if (event.code === "Escape") {
+        galleryEl.removeEventListener("keydown", event);
+        instance.close();
+      }
+    });
+  }
 }
